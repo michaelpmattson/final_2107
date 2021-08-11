@@ -27,4 +27,13 @@ class Item
   def bidding_closed?
     @bidding_closed
   end
+
+  def current_high_bidder
+    high_bidder = nil
+    high_bid = 0
+    @bids.each do |bidder, amount|
+      high_bidder = bidder if amount > high_bid
+    end
+    high_bidder
+  end
 end

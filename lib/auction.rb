@@ -1,8 +1,12 @@
+require 'date'
+
 class Auction
-  attr_reader :items
+  attr_reader :items,
+              :date
 
   def initialize
     @items = []
+    @date  = Date.today.strftime("%d/%m/%Y")
   end
 
   def add_item(item)
@@ -40,13 +44,27 @@ class Auction
   def bidder_info
     bidder_info = Hash.new { |h, k| h[k] = { budget: nil, items: [] } }
     @items.each do |item|
-      # require "pry"; binding.pry
       item.bids.each do |bidder, amount|
         bidder_info[bidder][:budget] = bidder.budget
         bidder_info[bidder][:items] << item
-        # require "pry"; binding.pry
       end
     end
     bidder_info
+  end
+
+  def close_auction
+    close_bidding
+
+    close_auction = {}
+    bidder_info.each do |bidder, info|
+      # require "pry"; binding.pry
+    end
+    close_auction
+  end
+
+  def close_bidding
+    @items.each do |item|
+      item.close_bidding
+    end
   end
 end
