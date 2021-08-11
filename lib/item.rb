@@ -3,12 +3,13 @@ class Item
               :bids
 
   def initialize(name)
-    @name = name
-    @bids = {}
+    @name           = name
+    @bids           = {}
+    @bidding_closed = false
   end
 
   def add_bid(bidder, amount)
-    @bids[bidder] = amount
+    @bids[bidder] = amount unless bidding_closed?
   end
 
   def current_high_bid
@@ -17,5 +18,13 @@ class Item
       high = @bids[bidder] if @bids[bidder] > high
     end
     high
+  end
+
+  def close_bidding
+    @bidding_closed = true
+  end
+
+  def bidding_closed?
+    @bidding_closed
   end
 end
